@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
     <% if reward.business_id %>
       <%= f.hidden_field :business_id %>
     <% else %>
@@ -24,22 +19,42 @@
     <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :klopps %>
-    <%= f.number_field :klopps %>
+  <div class="row">
+		<div class="input-field col s6">
+		  <%= f.label :name %>
+		  <%= f.text_field :name, id:'name' %>
+		</div>
+
+		<div class="input-field col s6">
+		  <%= f.label :klopps %>
+		  <%= f.number_field :klopps %>
+		</div>
   </div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+  <div class="row">
 
-  <div class="field">
-    <%= f.label :is_active %>
-    <%= f.check_box :is_active %>
+    <div class="file-field input-field col s6">
+      <div class="btn">
+        <span>Image</span>
+        <%= f.file_field :image %>
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
+    </div>
+
+		<div class="input-field col s6">
+		  <%= f.check_box :is_active, id: 'is_active' %>
+		  <%= f.label :is_active, for: 'is_active' %>
+		</div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+		<div align="right">
+		  <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light red") do %>
+		    <i class="material-icons">done</i>
+		  <% end %>
+		</div>
   </div>
+
 <% end %>

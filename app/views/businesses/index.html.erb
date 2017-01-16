@@ -17,10 +17,17 @@
       <tr>
         <td><%= business.name %></td>
         <td><%= business.description %></td>
-        <td><%= business.image %></td>
-        <td><%= link_to 'Show', business %></td>
-        <td><%= link_to 'Edit', edit_business_path(business) %></td>
-        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><img height="100px" src="<%= business.image %>"/></td>
+        <td>
+          <%= link_to business, class:'btn-floating btn-large waves-effect waves-light red' do %>
+            <i class="material-icons">mode_edit</i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to business, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-floating btn-large waves-effect waves-light red' do %>
+            <i class="material-icons">delete</i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +35,8 @@
 
 <br>
 
-<%= link_to 'New Business', new_business_path %>
+<div align="right">
+  <%= link_to new_business_path, class:'btn-floating btn-large waves-effect waves-light red' do%>
+    <i class="material-icons">add</i>
+  <% end %>
+</div>

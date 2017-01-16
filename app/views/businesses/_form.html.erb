@@ -11,22 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="input-field col s12">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="input-field col s12">
     <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, class: 'materialize-textarea' %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+	<div class="file-field input-field">
+		<div class="btn">
+		  <span>File</span>
+		  <%= f.file_field :image %>
+		</div>
+		<div class="file-path-wrapper">
+		  <input class="file-path validate" type="text">
+		</div>
+	</div>
 
   <div class="actions">
-    <%= f.submit %>
+		<div align="right">
+		  <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light red") do %>
+		    <i class="material-icons">done</i>
+		  <% end %>
+		</div>
   </div>
 <% end %>
