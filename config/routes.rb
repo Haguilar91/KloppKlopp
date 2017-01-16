@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  resources :rewards
   devise_for :users
   resources :businesses
   resources :homes
   get 'home/index'
 
-  root 'home#index'
+  root :to => "businesses#index"
 
 	namespace :api, defaults: { format: :json } do
 		  namespace :v1 do

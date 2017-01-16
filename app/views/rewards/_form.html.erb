@@ -1,0 +1,45 @@
+<%= form_for(reward) do |f| %>
+  <% if reward.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reward.errors.count, "error") %> prohibited this reward from being saved:</h2>
+
+      <ul>
+      <% reward.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <% if reward.business_id %>
+      <%= f.hidden_field :business_id %>
+    <% else %>
+      <%= f.hidden_field :business_id, value: business_id %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :klopps %>
+    <%= f.number_field :klopps %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= f.label :is_active %>
+    <%= f.check_box :is_active %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
