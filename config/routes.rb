@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 		    resource :examples do
 		      member do
 		        get :action_test
+		        get :get_businesses
 		      end
 		    end
 
