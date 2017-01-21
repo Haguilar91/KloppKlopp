@@ -17,4 +17,9 @@ class Api::V1::ExamplesController < Api::V1::ApplicationController
     render json: { "businesses": Business.all }
 	end
 
+	def get_rewards
+    business = Business.find_by_id(params[:business_id])
+    render json: { "rewards": business.rewards }
+	end
+
 end

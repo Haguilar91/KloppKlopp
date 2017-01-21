@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 		      member do
 		        get :action_test
 		        get :get_businesses
+		        get :get_rewards
 		      end
 		    end
 
