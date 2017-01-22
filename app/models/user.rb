@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :business
   has_many :klop_requests
   has_many :reward_requests
   has_many :klopp_logs

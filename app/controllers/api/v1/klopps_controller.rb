@@ -39,12 +39,12 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 		end
 
     if !params[:klopps]
-      render json: { error: 'business param not found' }, status: :unprocessable_entity
+      render json: { error: 'klopps param not found' }, status: :unprocessable_entity
       return
     end
 
     if !params[:invoice_number]
-      render json: { error: 'business param not found' }, status: :unprocessable_entity
+      render json: { error: 'invoice_number param not found' }, status: :unprocessable_entity
       return
     end
 
@@ -54,6 +54,11 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 		  render json: { error: 'Klopp request does not exists' }, status: :unprocessable_entity
 		  return
 		end
+
+    if klopp_request.business_id != user.business_id
+      render json: { error: 'you do not have permission to redeem klopps in this business' }, status: :unprocessable_entity
+      return
+    end
 
     klopp_log = KloppLog.new
     klopp_log.user_id = klopp_request.user_id
@@ -94,6 +99,12 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
     end
 
     klopp_request = KloppRequest.find_by_id(params[:klopp_request_id])
+
+    if klopp_request.business_id != user.business_id
+      render json: { error: 'you do not have permission to reject requests in this business' }, status: :unprocessable_entity
+      return
+    end
+
     klopp_request.state = "rejected"
     klopp_request.save
     
@@ -101,7 +112,39 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
   end
 
   def costumer_requests
-    render json: { "costumer_requests": KloppRequest.all }
+		user = User.find_by(authentication_token: [params[:user_token]], email: [params[:user_email]])
+
+		unless user
+		  render json: { error: 'User does not exists' }, status: :unprocessable_entity
+		  return
+		end
+
+    if !user.business_id
+      render json: { error: 'you do not manage a business' }, status: :unprocessable_entity
+      return
+    end
+
+    if params[:state] == "completed"
+      render json: { "costumer_requests": user.business.klopp_requests.where(state: "completed") }
+      return
+    end
+
+    if params[:state] == "rejected"
+      render json: { "costumer_requests": user.business.klopp_requests.where(state: "rejected") }
+      return
+    end
+
+    if params[:state] == "*"
+      render json: { "costumer_requests": user.business.klopp_requests }
+      return
+    end
+
+    if params[:state] == "pending"
+      render json: { "costumer_requests": user.business.klopp_requests.where(state: "pending") }
+      return
+    end
+
+    render json: { "costumer_requests": user.business.klopp_requests.where(state: "pending") }
   end
 
 end
