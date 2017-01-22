@@ -4,4 +4,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :klop_requests
+  has_many :reward_requests
+  has_many :klopp_logs
+  has_many :reward_logs
+  has_many :user_klopps
 end

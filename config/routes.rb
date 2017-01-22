@@ -19,6 +19,22 @@ Rails.application.routes.draw do
 		      end
 		    end
 
+		    resource :klopps do
+		      member do
+		        post :costumer_request
+		        post :redeem
+		        post :reject_request
+		        get :costumer_requests
+		      end
+		    end
+
+		    resource :rewards do
+		      member do
+		        post :costumer_request
+		        post :redeem
+		      end
+		    end
+
 		  end
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

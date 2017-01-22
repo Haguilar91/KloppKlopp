@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116183229) do
+ActiveRecord::Schema.define(version: 20170122171551) do
 
   create_table "businesses", force: :cascade do |t|
     t.string   "name"
@@ -20,12 +20,53 @@ ActiveRecord::Schema.define(version: 20170116183229) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "klopp_logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.integer  "klopps"
+    t.string   "invoice_number"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "klopp_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "state"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "reward_logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "reward_id"
+    t.integer  "klopps"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reward_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "reward_id"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rewards", force: :cascade do |t|
     t.string   "name"
     t.integer  "business_id"
     t.integer  "klopps"
     t.string   "image"
     t.boolean  "is_active"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_klopps", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.integer  "klopps"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
