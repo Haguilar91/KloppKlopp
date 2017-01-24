@@ -154,7 +154,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
     user.business.klopp_requests.where(state: "pending").each do |costumer_request|
       user = costumer_request.user
       user.authentication_token = nil
-      costumer_requests.push({ costumer_request: costumer_request, business: costumer_request.business, user: user })
+      costumer_requests.push({ costumer_request: costumer_request, user: user })
     end
 
     render json: { "costumer_requests": costumer_requests }
