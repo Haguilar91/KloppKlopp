@@ -4,6 +4,8 @@ class Business < ApplicationRecord
 
   has_many :users
   has_many :klopp_requests
+  has_many :reward_requests
   has_many :klopp_logs
+  has_many :reward_logs
   has_many :user_klopps
 end
