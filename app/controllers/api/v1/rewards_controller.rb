@@ -61,7 +61,7 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
     reward_log.klopps = reward_request.reward.klopps
     reward_log.save
 
-    user_klopp = UserKlopp.find_by(user_id: reward_request.user_id, business_id: reward_request.request.business_id)
+    user_klopp = UserKlopp.find_by(user_id: reward_request.user_id, business_id: reward_request.reward.business_id)
     if !user_klopp
       render json: { error: 'you do not have klopps on this business' }, status: :unprocessable_entity
       return
