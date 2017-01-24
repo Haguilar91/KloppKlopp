@@ -149,10 +149,10 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
       return
     end
 
-    costumer_requests = user.business.klopp_requests.where(state: "pending")
+    costumer_requests = []
 
-    costumer_requests.each do |costumer_request|
-      costumer_request.business = costumer_request.business
+    user.business.klopp_requests.where(state: "pending").each do |costumer_request|
+      costumer_requests.push { costumer_request: costumer_request, business: costumer_request.business }
     end
 
     render json: { "costumer_requests": costumer_requests }
