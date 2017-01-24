@@ -11,9 +11,8 @@ Rails.application.routes.draw do
 		  namespace :v1 do
 		    devise_for :users, controllers: { registrations: 'api/v1/registrations', sessions: 'api/v1/sessions'}
 
-		    resource :examples do
+		    resource :users do
 		      member do
-		        get :action_test
 		        get :get_businesses
 		        get :get_rewards
 		      end
@@ -32,6 +31,8 @@ Rails.application.routes.draw do
 		      member do
 		        post :costumer_request
 		        post :redeem
+		        post :reject_request
+		        get :costumer_requests
 		      end
 		    end
 

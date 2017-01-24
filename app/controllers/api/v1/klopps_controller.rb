@@ -10,7 +10,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 		end
 
     if !params[:business_id]
-      render json: { error: 'business param not found' }, status: :unprocessable_entity
+      render json: { error: 'business_id param not found' }, status: :unprocessable_entity
       return
     end
 
@@ -45,6 +45,11 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 
     if !params[:invoice_number]
       render json: { error: 'invoice_number param not found' }, status: :unprocessable_entity
+      return
+    end
+
+    if !params[:klopp_request_id]
+      render json: { error: 'klopp_request_id param not found' }, status: :unprocessable_entity
       return
     end
 
