@@ -119,27 +119,35 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
       return
     end
 
+    costumer_requests = []
+
     if params[:state] == "completed"
-      render json: { "costumer_requests": user.business.reward_requests.where(state: "completed") }
-      return
+		  user.business.reward_requests.where(state: "completed").each do |costumer_request|
+		    user = costumer_request.user
+		    user.authentication_token = nil
+		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		  end
+    elsif params[:state] == "rejected"
+		  user.business.reward_requests.where(state: "rejected").each do |costumer_request|
+		    user = costumer_request.user
+		    user.authentication_token = nil
+		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		  end
+    elsif params[:state] == "*"
+		  user.business.reward_requests.each do |costumer_request|
+		    user = costumer_request.user
+		    user.authentication_token = nil
+		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		  end
+    else
+		  user.business.reward_requests.where(state: "pending").each do |costumer_request|
+		    user = costumer_request.user
+		    user.authentication_token = nil
+		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		  end
     end
 
-    if params[:state] == "rejected"
-      render json: { "costumer_requests": user.business.reward_requests.where(state: "rejected") }
-      return
-    end
-
-    if params[:state] == "*"
-      render json: { "costumer_requests": user.business.reward_requests }
-      return
-    end
-
-    if params[:state] == "pending"
-      render json: { "costumer_requests": user.business.reward_requests.where(state: "pending") }
-      return
-    end
-
-    render json: { "costumer_requests": user.business.reward_requests.where(state: "pending") }
+    render json: { "costumer_requests": costumer_requests }
   end
 
 end

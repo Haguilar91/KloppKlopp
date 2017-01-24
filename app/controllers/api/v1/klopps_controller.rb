@@ -129,68 +129,32 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
       return
     end
 
+    costumer_requests = []
+
     if params[:state] == "completed"
-
-		  costumer_requests = []
-
-		  user.business.klopp_requests.where(state: "pending").each do |costumer_request|
+		  user.business.klopp_requests.where(state: "completed").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
 		    costumer_requests.push({ costumer_request: costumer_request, user: user })
 		  end
-
-      render json: { "costumer_requests": user.business.klopp_requests.where(state: "completed") }
-      return
-    end
-
-    if params[:state] == "rejected"
-
-		  costumer_requests = []
-
+    elsif params[:state] == "rejected"
 		  user.business.klopp_requests.where(state: "rejected").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
 		    costumer_requests.push({ costumer_request: costumer_request, user: user })
 		  end
-
-      render json: { "costumer_requests": user.business.klopp_requests.where(state: "rejected") }
-      return
-    end
-
-    if params[:state] == "*"
-
-		  costumer_requests = []
-
-		  user.business.klopp_requests.each do |costumer_request|
+    elsif params[:state] == "*"
+      user.business.klopp_requests.each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
 		    costumer_requests.push({ costumer_request: costumer_request, user: user })
 		  end
-
-      render json: { "costumer_requests": user.business.klopp_requests }
-      return
-    end
-
-    if params[:state] == "pending"
-
-		  costumer_requests = []
-
+    else
 		  user.business.klopp_requests.where(state: "pending").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
 		    costumer_requests.push({ costumer_request: costumer_request, user: user })
 		  end
-
-      render json: { "costumer_requests": user.business.klopp_requests.where(state: "pending") }
-      return
-    end
-
-    costumer_requests = []
-
-    user.business.klopp_requests.where(state: "pending").each do |costumer_request|
-      user = costumer_request.user
-      user.authentication_token = nil
-      costumer_requests.push({ costumer_request: costumer_request, user: user })
     end
 
     render json: { "costumer_requests": costumer_requests }
