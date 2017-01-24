@@ -125,25 +125,25 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
 		  user.business.reward_requests.where(state: "completed").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
-		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		    costumer_requests.push({ costumer_request: costumer_request, reward: costumer_request.reward, user: user })
 		  end
     elsif params[:state] == "rejected"
 		  user.business.reward_requests.where(state: "rejected").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
-		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		    costumer_requests.push({ costumer_request: costumer_request, reward: costumer_request.reward, user: user })
 		  end
     elsif params[:state] == "*"
 		  user.business.reward_requests.each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
-		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		    costumer_requests.push({ costumer_request: costumer_request, reward: costumer_request.reward, user: user })
 		  end
     else
 		  user.business.reward_requests.where(state: "pending").each do |costumer_request|
 		    user = costumer_request.user
 		    user.authentication_token = nil
-		    costumer_requests.push({ costumer_request: costumer_request, user: user })
+		    costumer_requests.push({ costumer_request: costumer_request, reward: costumer_request.reward, user: user })
 		  end
     end
 
