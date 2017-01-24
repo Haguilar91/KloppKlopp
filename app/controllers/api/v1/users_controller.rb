@@ -23,6 +23,12 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def get_rewards
+
+    if !params[:business_id]
+      render json: { error: 'business_id param not found' }, status: :unprocessable_entity
+      return
+    end
+
     business = Business.find_by_id(params[:business_id])
     render json: { "rewards": business.rewards }
 	end
