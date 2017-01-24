@@ -95,7 +95,7 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
 
     reward_request = RewardRequest.find_by_id(params[:reward_request_id])
 
-    if reward_request.request.business_id != user.business_id
+    if reward_request.reward.business_id != user.business_id
       render json: { error: 'you do not have permission to reject requests in this business' }, status: :unprocessable_entity
       return
     end
