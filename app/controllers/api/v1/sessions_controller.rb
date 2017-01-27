@@ -17,7 +17,8 @@ class Api::V1::SessionsController < Devise::SessionsController
           render json: {
             user: current_user,
             status: :ok,
-            authentication_token: current_user.authentication_token
+            authentication_token: current_user.authentication_token,
+            business: current_user.business
           }
         end
       end
