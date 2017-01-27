@@ -10,7 +10,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		end
 
     businesses = []
-    Business.all.each do |business|
+    Business.where(is_active: true).each do |business|
       klopps = 0
       user_klopp = UserKlopp.find_by(user_id: user.id, business_id: business.id)
       if user_klopp

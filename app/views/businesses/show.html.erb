@@ -2,11 +2,12 @@
 
 <%= link_to 'Back', businesses_path, class:'waves-effect waves-light btn' %>
 
-<h2><%= @business.name %></h2>
+<h2><%= @business.name %> (<%= @business.is_active ? "active" : "inactive" %>)</h2>
 
 <img src="<%= @business.image %>"/>
 
 <p><%= @business.description %></p>
+
 
 <div align="right">
   <%= link_to edit_business_path(@business),class:'btn-floating btn-large waves-effect waves-light red' do %>

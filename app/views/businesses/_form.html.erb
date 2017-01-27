@@ -31,6 +31,11 @@
 		</div>
 	</div>
 
+	<div class="input-field col s6">
+		<%= f.check_box :is_active, id: 'is_active' %>
+		<%= f.label :is_active, for: 'is_active' %>
+	</div>
+
   <div class="actions">
 		<div align="right">
 		  <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light red") do %>
