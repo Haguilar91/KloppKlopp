@@ -30,7 +30,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     end
 
     business = Business.find_by_id(params[:business_id])
-    render json: { "rewards": business.rewards }
+    render json: { "rewards": business.rewards.where(is_active: true) }
 	end
 
 end
