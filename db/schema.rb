@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170127162918) do
     t.string   "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "is_active"
+    t.boolean  "is_active"
   end
 
   create_table "klopp_logs", force: :cascade do |t|
