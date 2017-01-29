@@ -160,4 +160,28 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
     render json: { "costumer_requests": costumer_requests }
   end
 
+  def log
+		user = User.find_by(authentication_token: [params[:user_token]], email: [params[:user_email]])
+
+		unless user
+		  render json: { error: 'User does not exists' }, status: :unprocessable_entity
+		  return
+		end
+
+    if !user.business_id
+      render json: { error: 'you do not manage a business' }, status: :unprocessable_entity
+      return
+    end
+
+    klopp_logs = []
+
+	  user.business.klopp_logs.each do |klopp_log|
+	    user = klopp_log.user
+	    user.authentication_token = nil
+	    costumer_requests.push({ klopp_log: klopp_log, user: user })
+	  end
+
+    render json: { "log": user.business.klopp_log }
+  end
+
 end

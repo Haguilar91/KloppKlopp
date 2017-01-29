@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 		        post :redeem
 		        post :reject_request
 		        get :costumer_requests
+		        get :log
 		      end
 		    end
 
