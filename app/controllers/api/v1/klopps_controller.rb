@@ -181,7 +181,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 	    costumer_requests.push({ klopp_log: klopp_log, user: user })
 	  end
 
-    render json: { "log": user.business.klopp_log }
+    render json: { "log": user.business.klopp_logs }
   end
 
 end
