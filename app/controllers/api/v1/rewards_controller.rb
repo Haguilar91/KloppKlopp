@@ -169,7 +169,7 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
 	    user = reward_log.user
 	    reward = reward_log.reward
 	    user.authentication_token = nil
-	    reward_logs.push({ klopp_log: klopp_log, user: user, reward: reward })
+	    reward_logs.push({ reward_log: reward_log, user: user, reward: reward })
 	  end
 
     render json: { "log": reward_logs }
