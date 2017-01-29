@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Back', businesses_path, class:'waves-effect waves-light btn' %>
+<%= link_to 'Back', businesses_path, class:'waves-effect waves-light teal btn' %>
 
 <h2><%= @business.name %> (<%= @business.is_active ? "active" : "inactive" %>)</h2>
 
@@ -10,7 +10,7 @@
 
 
 <div align="right">
-  <%= link_to edit_business_path(@business),class:'btn-floating btn-large waves-effect waves-light red' do %>
+  <%= link_to edit_business_path(@business),class:'btn-floating btn-large waves-effect waves-light teal' do %>
     <i class="material-icons">mode_edit</i>
   <% end %>
 </div>
@@ -34,7 +34,7 @@
 				<td><%= reward.is_active ? "Yes" : "No" %></td>
 				<td><img height="100" src="<%= reward.image %>" /></td>
         <td>
-          <%= link_to edit_reward_path(reward),class:'btn-floating btn-large waves-effect waves-light red' do %>
+          <%= link_to edit_reward_path(reward),class:'btn-floating btn-large waves-effect waves-light teal' do %>
 						<i class="material-icons">mode_edit</i>
 					<% end %>
         </td>
