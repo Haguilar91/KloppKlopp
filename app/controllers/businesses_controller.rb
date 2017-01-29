@@ -4,7 +4,11 @@ class BusinessesController < ApplicationController
   # GET /businesses
   # GET /businesses.json
   def index
-    @businesses = Business.all
+    if isSalesUser
+      @businesses = Business.all
+    else
+      @businesses = []
+    end
   end
 
   # GET /businesses/1
@@ -14,7 +18,9 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/new
   def new
-    @business = Business.new
+    if isSalesUser
+      @business = Business.new
+    end
   end
 
   # GET /businesses/1/edit
@@ -24,15 +30,17 @@ class BusinessesController < ApplicationController
   # POST /businesses
   # POST /businesses.json
   def create
-    @business = Business.new(business_params)
+    if isSalesUser
+      @business = Business.new(business_params)
 
-    respond_to do |format|
-      if @business.save
-        format.html { redirect_to @business, notice: 'Business was successfully created.' }
-        format.json { render :show, status: :created, location: @business }
-      else
-        format.html { render :new }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @business.save
+          format.html { redirect_to @business, notice: 'Business was successfully created.' }
+          format.json { render :show, status: :created, location: @business }
+        else
+          format.html { render :new }
+          format.json { render json: @business.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,13 +48,15 @@ class BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
-    respond_to do |format|
-      if @business.update(business_params)
-        format.html { redirect_to @business, notice: 'Business was successfully updated.' }
-        format.json { render :show, status: :ok, location: @business }
-      else
-        format.html { render :edit }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
+    if isSalesUser
+      respond_to do |format|
+        if @business.update(business_params)
+          format.html { redirect_to @business, notice: 'Business was successfully updated.' }
+          format.json { render :show, status: :ok, location: @business }
+        else
+          format.html { render :edit }
+          format.json { render json: @business.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -54,10 +64,12 @@ class BusinessesController < ApplicationController
   # DELETE /businesses/1
   # DELETE /businesses/1.json
   def destroy
-    @business.destroy
-    respond_to do |format|
-      format.html { redirect_to businesses_url, notice: 'Business was successfully destroyed.' }
-      format.json { head :no_content }
+    if isSalesUser
+      @business.destroy
+      respond_to do |format|
+        format.html { redirect_to businesses_url, notice: 'Business was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

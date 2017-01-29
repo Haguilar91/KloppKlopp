@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
 	def json_request?
 		  request.format.json?
 	end
+
+  def isSalesUser
+    return current_user.email == "sales@klopp.co"
+  end
 end
