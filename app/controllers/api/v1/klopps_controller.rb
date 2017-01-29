@@ -178,7 +178,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 	  user.business.klopp_logs.each do |klopp_log|
 	    user = klopp_log.user
 	    user.authentication_token = nil
-	    costumer_requests.push({ klopp_log: klopp_log, user: user })
+	    klopp_logs.push({ klopp_log: klopp_log, user: user })
 	  end
 
     render json: { "log": klopp_logs }

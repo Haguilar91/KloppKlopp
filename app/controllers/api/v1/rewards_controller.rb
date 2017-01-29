@@ -150,4 +150,29 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
     render json: { "costumer_requests": costumer_requests }
   end
 
+  def log
+		user = User.find_by(authentication_token: [params[:user_token]], email: [params[:user_email]])
+
+		unless user
+		  render json: { error: 'User does not exists' }, status: :unprocessable_entity
+		  return
+		end
+
+    if !user.business_id
+      render json: { error: 'you do not manage a business' }, status: :unprocessable_entity
+      return
+    end
+
+    reward_logs = []
+
+	  user.business.reward_logs.each do |reward_log|
+	    user = reward_log.user
+	    reward = reward_log.reward
+	    user.authentication_token = nil
+	    reward_logs.push({ klopp_log: klopp_log, user: user, reward: reward })
+	  end
+
+    render json: { "log": reward_logs }
+  end
+
 end
