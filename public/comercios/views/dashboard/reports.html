@@ -9,6 +9,9 @@
 		<div class="col-md-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
+          <div align="right">
+            <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
+          </div>
 					Solicitudes de premios
 					<input type="text" class="form-control" ng-model="filter_klopps" placeholder="Buscar">
 				</div>
@@ -47,24 +50,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
 </div>

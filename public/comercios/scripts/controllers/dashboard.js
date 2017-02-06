@@ -79,7 +79,7 @@ angular.module('yapp')
           if (data.data.costumer_requests.length > 0) {
             vm.requests[state] = data.data.costumer_requests;
           } else {
-
+            vm.requests[state] = [];
           }
         }
       }, function (err) {
@@ -93,7 +93,7 @@ angular.module('yapp')
           if (data.data.costumer_requests.length > 0) {
             vm.requests[state] = data.data.costumer_requests;
           } else {
-
+            vm.requests[state] = [];
           }
         }
       }, function (err) {
@@ -128,7 +128,9 @@ angular.module('yapp')
 
       })
     };
-
+		vm.reloadRoute = function() {
+			 $state.reload();
+		}
     vm.logOut = function () {
       localStorage.removeItem('token');
       $state.go('login');
