@@ -32,7 +32,8 @@
     </form>
 </md-content>
 <div class="md-actions" layout="row"> <span flex></span>
+    <md-button ng-click="answer(user.reward,'reject')" class="md-accent">Rechazar</md-button>
     <md-button class="md-warn" ng-click="cancel()"> Cancelar </md-button>
-    <md-button ng-click="answer(user.reward)" class="md-accent">Ok</md-button>
+    <md-button ng-click="answer(user.reward,'accept')" class="md-accent">Ok</md-button>
 </div>
 </md-dialog>

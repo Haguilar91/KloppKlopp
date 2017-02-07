@@ -9,6 +9,14 @@ app.factory('kloppsServices', function ($q, $rootScope, $state, $http, baseValue
             var user = JSON.parse(localStorage.getItem('token'));
             return $http.get(baseValues.baseURL + '/rewards/costumer_requests?user_token='+ user.token+'&user_email='+user.email);
         },
+        rewardsRequestsFinished: function () {            
+            var user = JSON.parse(localStorage.getItem('token'));
+            return $http.get(baseValues.baseURL + '/rewards/costumer_requests?user_token='+ user.token+'&user_email='+user.email+'&state=*');
+        },
+        kloppsRequestsFinished: function () {            
+            var user = JSON.parse(localStorage.getItem('token'));
+            return $http.get(baseValues.baseURL + '/klopps/costumer_requests?user_token='+ user.token+'&user_email='+user.email+'&state=*');
+        },
         kloppsRequestsCompleted: function () {
             var user = JSON.parse(localStorage.getItem('token'));
             return $http.get(baseValues.baseURL + '/klopps/log?user_token='+ user.token+'&user_email='+user.email);

@@ -27,11 +27,21 @@ angular.module('yapp')
         templateUrl: 'views/modal.html',
         targetEvent: ev,
       }).then(function (klopp) {
-        kloppsServices.kloppsRedeem(klopp.id, klopp.total, klopp.invoice).then(function (data) {
-          if (data.status == 200) {
-            toaster.pop("success", "Klopp Klopp", "Los klopps se han entregado correctamente");
-          }
-        })
+        if(klopp.action == "accept")
+        {
+		      kloppsServices.kloppsRedeem(klopp.id, klopp.total, klopp.invoice).then(function (data) {
+		        if (data.status == 200) {
+		          toaster.pop("success", "Klopp Klopp", "Los klopps se han entregado correctamente");
+		        }
+		      })
+        }else if(klopp.action=="reject")
+        {
+          kloppsServices.kloppsReject(klopp.id).then(function (data) {
+            if (data.status == 200) {
+              toaster.pop("success", "Klopp Klopp", "Se ha rechazado la solicitud de klopps correctamente");
+            }
+          })
+        }
       }, function (err) {
         if (err) {
           toaster.pop("error", "Klopp Klopp", "Ha ocurrido un error al entregar los klopps");
@@ -42,18 +52,28 @@ angular.module('yapp')
     $scope.showRewardsModal = function (ev, user) {
       $mdDialog.show({
         locals: { user: user },
-        controller: DialogController,
+        controller: RewardsDialogController,
         templateUrl: 'views/modal_rewards.html',
         targetEvent: ev,
       }).then(function (reward) {
-        kloppsServices.rewardsRedeem(reward.id).then(function (data) {
-          if (data.status == 200) {
-            toaster.pop("success", "Klopp Klopp", "El premio se han redimido correctamente");
-          }
-        })
+        if(reward.action == "accept")
+        {
+          kloppsServices.rewardsRedeem(reward.id).then(function (data) {
+            if (data.status == 200) {
+              toaster.pop("success", "Klopp Klopp", "El premio se han redimido correctamente");
+            }
+          })
+        }else if(reward.action=="reject")
+        {
+          kloppsServices.rewardsReject(reward.id).then(function (data) {
+            if (data.status == 200) {
+              toaster.pop("success", "Klopp Klopp", "Se ha rechazado el premio correctamente");
+            }
+          })
+        }
       }, function (err) {
         if (err) {
-          toaster.pop("error", "Klopp Klopp", "Ha ocurrido un error al redimir el premio");
+          toaster.pop("error", "Klopp Klopp", "Ha ocurrido un error al rechazar el premio");
         }
       });
     };
@@ -67,20 +87,37 @@ angular.module('yapp')
       $scope.cancel = function () {
         $mdDialog.cancel();
       };
-      $scope.answer = function (klopp) {
+      $scope.answer = function (klopp, action) {
         klopp.id = $scope.user.costumer_request.id;
+				klopp.action = action;
         $mdDialog.hide(klopp);
+      };
+    };
+
+    function RewardsDialogController($scope, $mdDialog, user) {
+      $scope.klopp = {};
+      $scope.user = user;
+      $scope.hide = function () {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function () {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function (reward, action) {
+        reward.id = $scope.user.costumer_request.id;
+				reward.action = action;
+        $mdDialog.hide(reward);
       };
     };
 
     vm.getKloppRequests = function (state) {
       kloppsServices.kloppsRequests(state).then(function (data) {
         if (data.status === 200) {
-          if (data.data.costumer_requests.length > 0) {
+          //if (data.data.costumer_requests.length > 0) {
             vm.requests[state] = data.data.costumer_requests;
-          } else {
-            vm.requests[state] = [];
-          }
+          //} else {
+  //          vm.requests[state] = [];
+          //}
         }
       }, function (err) {
 
@@ -90,11 +127,11 @@ angular.module('yapp')
     vm.getRewardRequests = function (state) {
       kloppsServices.rewardsRequests(state).then(function (data) {
         if (data.status === 200) {
-          if (data.data.costumer_requests.length > 0) {
+          //if (data.data.costumer_requests.length > 0) {
             vm.requests[state] = data.data.costumer_requests;
-          } else {
-            vm.requests[state] = [];
-          }
+          //} else {
+          //  vm.requests[state] = [];
+          //}
         }
       }, function (err) {
 
@@ -115,13 +152,27 @@ angular.module('yapp')
       })
     };
 
-    vm.getRewardRequestsCompleted = function () {
-      kloppsServices.rewardsRequestsCompleted().then(function (data) {
+    vm.getKloppRequestsFinished = function () {
+      kloppsServices.kloppsRequestsFinished().then(function (data) {
         if (data.status === 200) {
-          if (data.data.log.length > 0) {
-            vm.requests.completed = data.data.log;
+          if (data.data.costumer_requests.length > 0) {
+            vm.requests.completed = data.data.costumer_requests;
           } else {
+            vm.requests.completed = []
+          }
+        }
+      }, function (err) {
 
+      })
+    };
+
+    vm.getRewardRequestsFinished = function () {
+      kloppsServices.rewardsRequestsFinished().then(function (data) {
+        if (data.status === 200) {
+          if (data.data.costumer_requests.length > 0) {
+            vm.requests.completed = data.data.costumer_requests;
+          } else {
+            vm.requests.completed = []
           }
         }
       }, function (err) {
