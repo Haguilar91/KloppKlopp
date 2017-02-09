@@ -4,7 +4,27 @@ class Api::V1::SessionsController < Devise::SessionsController
     def create
       #user = warden.authenticate!(params[:user])
       user = User.find_by_email(params[:user][:email])
+      if !user
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :unprocessable_entity,
+		           error: "User does not exists"
+		         }
+	        end
+  	    end
+        return
+      end
+
       if user.valid_password?(params[:user][:password]) == false
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :unprocessable_entity,
+		           error: "Incorrect password"
+		         }
+	        end
+  	    end
         return
       end
       sign_in(resource_name, user)
