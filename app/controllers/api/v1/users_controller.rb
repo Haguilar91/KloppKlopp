@@ -1,6 +1,10 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
 	protect_from_forgery with: :null_session
 
+  def session_check
+    render json: {}, status: :ok
+  end
+
 	def get_businesses
 		user = User.find_by(authentication_token: [params[:user_token]], email: [params[:user_email]])
 

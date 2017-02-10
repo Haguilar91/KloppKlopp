@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 		      member do
 		        get :get_businesses
 		        get :get_rewards
+		        get :session_check
 		      end
 		    end
 
