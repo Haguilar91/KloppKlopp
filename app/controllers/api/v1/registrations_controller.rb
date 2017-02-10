@@ -2,18 +2,46 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     def create
       @user = User.new(user_params)
       if User.exists?(username: @user.username)
-        render json: { error: "username already exists" }
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :unprocessable_entity,
+		           error: "Username already exists"
+		         }
+	        end
+  	    end
         return
       end
       if !@user.username
-        render json: { error: "username not found" }
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :unprocessable_entity,
+		           error: "Username param not found"
+		         }
+	        end
+  	    end
         return
       end
       @user = User.create(user_params)
       if @user.save
-        render json: { state: { code: 0 }, data: @user }
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :ok,
+		           data: @user
+		         }
+	        end
+  	    end
       else
-        render json: { state: { code: 1, messages: @user.errors.full_messages } }
+	      respond_to do |format|
+  	      format.json do
+		         render json: {
+		           status: :unprocessable_entity,
+		           error: @user.errors.full_messages.first
+		         }
+	        end
+  	    end
       end
     end
 
