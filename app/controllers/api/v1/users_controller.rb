@@ -2,7 +2,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	protect_from_forgery with: :null_session
 
   def session_check
-    render json: {}, status: :ok
+    render json: {status: :ok}, status: :ok
   end
 
 	def get_businesses
