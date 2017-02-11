@@ -22,7 +22,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 		end
 
     if KloppRequest.find_by(user_id: user.id, business_id: business.id, state: "pending")
-		  render json: { error: 'Previous request found' }, status: :unprocessable_entity
+		  render json: { error: 'Previous request found', status: :unprocessable_entity }
 		  return
 		end
 
@@ -32,7 +32,7 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
     klopp_request.state = "pending"
     klopp_request.save
 
-		render json: { "message": "klopps requested" }
+		render json: { "message": "klopps requested", status: :ok }
 	end
 
 	def redeem

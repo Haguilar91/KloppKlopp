@@ -22,7 +22,7 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
 		end
 
     if RewardRequest.find_by(user_id: user.id, reward_id: reward.id, state: "pending")
-		  render json: { error: 'Previous request found' }, status: :unprocessable_entity
+		  render json: { error: 'Previous request found', status: :unprocessable_entity }
 		  return
 		end
 
@@ -32,7 +32,7 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
     reward_request.state = "pending"
     reward_request.save
 
-		render json: { "message": "reward requested" }
+		render json: { "message": "reward requested", status: :ok }
 	end
 
 	def redeem
