@@ -42,7 +42,7 @@ class Api::V1::StatsController < Api::V1::ApplicationController
 
     rewards = []
 
-	  business.reward_logs.group(:user_id).count(:reward_id).each do |reward_stat|
+	  business.reward_logs.group(:reward_id).count(:reward_id).each do |reward_stat|
 	    rewards.push({ reward: Reward.find_by_id(reward_stat.first), count: reward_stat.second })
 	  end
 
