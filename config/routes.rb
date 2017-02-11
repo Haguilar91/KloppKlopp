@@ -39,6 +39,12 @@ Rails.application.routes.draw do
 		      end
 		    end
 
+		    resource :stats do
+		      member do
+		        get :top_users
+		      end
+		    end
+
 		  end
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
