@@ -21,6 +21,11 @@ class Api::V1::KloppsController < Api::V1::ApplicationController
 		  return
 		end
 
+    if KloppRequest.find_by(user_id: user.id, business_id: business.id, state: "pending")
+		  render json: { error: 'Previous request found' }, status: :unprocessable_entity
+		  return
+		end
+
     klopp_request = KloppRequest.new
     klopp_request.user_id = user.id
     klopp_request.business_id = business.id

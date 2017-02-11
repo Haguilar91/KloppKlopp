@@ -21,6 +21,11 @@ class Api::V1::RewardsController < Api::V1::ApplicationController
 		  return
 		end
 
+    if RewardRequest.find_by(user_id: user.id, reward_id: reward.id, state: "pending")
+		  render json: { error: 'Previous request found' }, status: :unprocessable_entity
+		  return
+		end
+
     reward_request = RewardRequest.new
     reward_request.user_id = user.id
     reward_request.reward_id = reward.id
