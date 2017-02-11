@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 		      member do
 		        get :top_users
 		        get :top_rewards
+		        get :dashboard
 		      end
 		    end
 
