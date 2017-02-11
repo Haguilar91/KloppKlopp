@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 		    resource :stats do
 		      member do
 		        get :top_users
+		        get :top_rewards
 		      end
 		    end
 
