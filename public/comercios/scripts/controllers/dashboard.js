@@ -179,6 +179,22 @@ angular.module('yapp')
 
       })
     };
+
+    vm.getDashboardsStats = function () {
+      kloppsServices.dashboardStats().then(function (data) {
+        if (data.status === 200) {
+          vm.rewards = data.data.rewards
+          vm.users = data.data.users
+        }else
+        {
+          vm.rewards = []
+          vm.users = []
+        }
+      }, function (err) {
+
+      })
+    };
+
 		vm.reloadRoute = function() {
 			 $state.reload();
 		}

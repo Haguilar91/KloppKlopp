@@ -1,0 +1,56 @@
+<div>
+	<div class="jumbotron jumbo2">
+		<div class="container">
+			<h1>Ranking</h1>
+			En esta seccion puede ver cuáles son los premios mas solicitados y los usuarios más activos.<br /><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+          <div align="right">
+            <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
+          </div>
+					Ranking de premios
+					<input type="text" class="form-control" ng-model="filter_rewards" placeholder="Buscar">
+				</div>
+				<div class="panel-body">
+
+					<div ng-init="vm.getDashboardsStats()" class="list-group">
+						<a ng-repeat="item in vm.rewards | filter:filter_rewards | orderBy: 'count' : true" ng-click="showRewardsModal($event, item)" class="list-group-item">
+							<h4 class="list-group-item-heading"><strong>{{ $index+1 }} - {{item.reward.name }} </strong></h4>
+							<p class="list-group-item-text"><strong>Otorgados: </strong> {{ item.count }}</p>
+							<p class="list-group-item-text"><strong>Klopps: </strong> {{ item.reward.klopps }}</p>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+          <div align="right">
+            <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
+          </div>
+					Ranking de usuarios
+					<input type="text" class="form-control" ng-model="filter_users" placeholder="Buscar">
+				</div>
+
+				<div class="panel-body">
+
+					<div ng-init="vm.getDashboardsStats()" class="list-group">
+						<a ng-repeat="item in vm.users | filter:filter_users | orderBy: 'klopps' : true" ng-click="showRewardsModal($event, item)" class="list-group-item">
+							<h4 class="list-group-item-heading"><strong>{{ $index+1 }} - {{item.user.username }} </strong></h4>
+							<p class="list-group-item-text"><strong>Klopps: </strong> {{ item.klopps }}</p>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,7 +1,11 @@
 app.factory('kloppsServices', function ($q, $rootScope, $state, $http, baseValues) {
 
     return {
-        kloppsRequests: function (state) {            
+        dashboardStats: function (state) {
+            var user = JSON.parse(localStorage.getItem('token'));
+            return $http.get(baseValues.baseURL + '/stats/dashboard?user_token='+ user.token+'&user_email='+user.email+'&state='+ state);
+        },
+        kloppsRequests: function (state) {
             var user = JSON.parse(localStorage.getItem('token'));
             return $http.get(baseValues.baseURL + '/klopps/costumer_requests?user_token='+ user.token+'&user_email='+user.email+'&state='+ state);
         },

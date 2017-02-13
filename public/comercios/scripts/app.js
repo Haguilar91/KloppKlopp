@@ -80,6 +80,11 @@ app.constant('baseValues', {
             url: '/reports',
             parent: 'dashboard',
             templateUrl: 'views/dashboard/reports.html'
+          })
+          .state('stats', {
+            url: '/stats',
+            parent: 'dashboard',
+            templateUrl: 'views/dashboard/stats.html'
           });
 
   });
