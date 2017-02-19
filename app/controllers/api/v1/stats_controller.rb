@@ -76,7 +76,7 @@ class Api::V1::StatsController < Api::V1::ApplicationController
 	    users.push({ user: User.find_by_id(klopp_log.first), klopps: klopp_log.second })
 	  end
 
-    render json: { "users": users, "rewards": rewards }
+    render json: { "visits": business.klopp_logs.count, "klopps": business.klopp_logs.sum(:klopps), "users": users, "rewards": rewards }
 	end
 
 end
