@@ -4,6 +4,7 @@ angular.module('yapp')
 
 .controller('DashboardCtrl', function($scope, $state, $stateParams, kloppsServices, $mdDialog, toaster) {
     var vm = this;
+
     vm.requests = {
         pending: [],
         completed: []
@@ -48,10 +49,10 @@ angular.module('yapp')
             },
             duration: 500,
             xAxis: {
-                axisLabel: 'X Axis'
+                axisLabel: 'Usuarios'
             },
             yAxis: {
-                axisLabel: 'Y Axis',
+                axisLabel: 'Klopps',
                 axisLabelDistance: -10
             }
         }
@@ -169,11 +170,9 @@ angular.module('yapp')
     vm.getKloppRequests = function(state) {
         kloppsServices.kloppsRequests(state).then(function(data) {
             if (data.status === 200) {
-                //if (data.data.costumer_requests.length > 0) {
+
                 vm.requests[state] = data.data.costumer_requests;
-                //} else {
-                //          vm.requests[state] = [];
-                //}
+
             }
         }, function(err) {
 
@@ -185,9 +184,6 @@ angular.module('yapp')
             if (data.status === 200) {
                 //if (data.data.costumer_requests.length > 0) {
                 vm.requests[state] = data.data.costumer_requests;
-                //} else {
-                //  vm.requests[state] = [];
-                //}
             }
         }, function(err) {
 
@@ -241,6 +237,8 @@ angular.module('yapp')
             if (data.status === 200) {
                 vm.rewards = data.data.rewards
                 vm.users = data.data.users
+                vm.klopps = data.data.klopps
+                vm.visits = data.data.visits
                 vm.dataBars[0].values = vm.users;
             } else {
                 vm.rewards = []

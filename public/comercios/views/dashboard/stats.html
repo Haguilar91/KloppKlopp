@@ -1,9 +1,38 @@
 <div>
-    <div class="jumbotron jumbo2">
+    <!--<div class="jumbotron">
         <div class="container">
             <h1>Ranking</h1>
             En esta seccion puede ver cuáles son los premios mas solicitados y los usuarios más activos.<br /><br />
         </div>
+    </div>-->
+    <div flex-xs flex-gt-xs="100" layout="row">
+        <md-card flex md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">LPS. {{ vm.klopps }}</span>
+                    <span class="md-subhead">Ventas</span>
+                </md-card-title-text>
+
+            </md-card-title>
+        </md-card>
+        <md-card flex md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">KL. {{ vm.klopps }}</span>
+                    <span class="md-subhead">Klopps</span>
+                </md-card-title-text>
+
+            </md-card-title>
+        </md-card>
+        <md-card flex md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{ vm.visits }}</span>
+                    <span class="md-subhead">Visitas</span>
+                </md-card-title-text>
+
+            </md-card-title>
+        </md-card>
     </div>
     <div class="row">
         <div class="col-md-8">
@@ -23,12 +52,12 @@
                         <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
                     </div>
                     Ranking de premios
-                    <input type="text" class="form-control" ng-model="filter_rewards" placeholder="Buscar">
+                    <input type="text" class="form-control" ng-model="vm.filter_rewards" placeholder="Buscar">
                 </div>
                 <div class="panel-body">
 
-                    <div ng-init="vm.getDashboardsStats()" class="list-group">
-                        <a ng-repeat="item in vm.rewards | filter:filter_rewards | orderBy: 'count' : true" class="list-group-item">
+                    <div ng-init="vm.getDashboardsStats()" class="list-group klopps-container">
+                        <a ng-repeat="item in vm.rewards | filter:vm.filter_rewards | orderBy: 'count' : true" class="list-group-item">
                             <h4 class="list-group-item-heading"><strong>{{ $index+1 }} - {{item.reward.name }} </strong></h4>
                             <p class="list-group-item-text"><strong>Otorgados: </strong> {{ item.count }}</p>
                             <p class="list-group-item-text"><strong>Klopps: </strong> {{ item.reward.klopps }}</p>
@@ -57,13 +86,13 @@
                         <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
                     </div>
                     Ranking de usuarios
-                    <input type="text" class="form-control" ng-model="filter_users" placeholder="Buscar">
+                    <input type="text" class="form-control" ng-model="vm.filter_users" placeholder="Buscar">
                 </div>
 
                 <div class="panel-body">
 
-                    <div ng-init="vm.getDashboardsStats()" class="list-group">
-                        <a ng-repeat="item in vm.users | filter:filter_users | orderBy: 'klopps' : true" class="list-group-item">
+                    <div ng-init="vm.getDashboardsStats()" class="list-group klopps-container">
+                        <a ng-repeat="item in vm.users | filter:vm.filter_users | orderBy: 'klopps' : true" class="list-group-item">
                             <h4 class="list-group-item-heading"><strong>{{ $index+1 }} - {{item.user.username }} </strong></h4>
                             <p class="list-group-item-text"><strong>Klopps: </strong> {{ item.klopps }}</p>
                         </a>

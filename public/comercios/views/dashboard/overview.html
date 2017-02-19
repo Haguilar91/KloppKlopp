@@ -1,63 +1,62 @@
 <div>
-	<div class="jumbotron jumbo2">
-		<div class="container">
-			<h1>¡Bienvenido!</h1>
-			En esta seccion puede dar los klopps a quien te los solicita y visualizar a quienes se os hayas otorgado, recuerda ingresar
-			el numero de factura en cada solicitud de klopps<br /><br />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-          <div align="right">
-            <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
-          </div>
-					Solicitudes de klopps pendientes
-					<input type="text" class="form-control" ng-model="filter_klopps" placeholder="Buscar">
-				</div>
-				<div class="panel-body">
+    <!--<div class="jumbotron jumbo2">
+        <div class="container">
+            <h1>¡Bienvenido!</h1>
+            En esta seccion puede dar los klopps a quien te los solicita y visualizar a quienes se os hayas otorgado, recuerda ingresar el numero de factura en cada solicitud de klopps<br /><br />
+        </div>
+    </div>-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div align="right">
+                        <a align="right" ng-click="vm.reloadRoute()" class="btn btn-white btn-outline btn-rounded btn-sm">Refrescar</a>
+                    </div>
+                    Solicitudes de klopps pendientes
+                    <input type="text" class="form-control" ng-model="vm.filter_klopps" placeholder="Buscar">
+                </div>
+                <div class="panel-body">
 
-					<div ng-init="vm.getKloppRequests('pending')" class="list-group">
-						<a ng-repeat="item in vm.requests.pending | filter:filter_klopps | orderBy: 'costumer_request.created_at' : true" ng-click="showAdd($event, item)" class="list-group-item">
-							<h4 class="list-group-item-heading"><strong>Usuario: </strong>{{item.user.username}}</h4>
-							<p class="list-group-item-text"><strong>Fecha y hora: </strong> {{ item.costumer_request.created_at | date:'short' }}</p>
-							<p class="list-group-item-text"><span class="label label-warning"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>
-						</a>
-					</div>
+                    <div ng-init="vm.getKloppRequests('pending')" class="list-group checkin-detail-container">
+                        <a ng-repeat="item in vm.requests.pending | filter:vm.filter_klopps | orderBy: 'costumer_request.created_at' : true" ng-click="showAdd($event, item)" class="list-group-item">
+                            <h4 class="list-group-item-heading"><strong>Usuario: </strong>{{item.user.username}}</h4>
+                            <p class="list-group-item-text"><strong>Fecha y hora: </strong> {{ item.costumer_request.created_at | date:'short' }}</p>
+                            <p class="list-group-item-text"><span class="label label-warning"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>
+                        </a>
+                    </div>
 
-				</div>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					Solicitudes de klopps completados
-					<input type="text" class="form-control" ng-model="filter_kloppss" placeholder="Buscar">
-				</div>
-				<div class="panel-body">
-					<div ng-init="vm.getKloppRequestsFinished()" class="list-group">
-						<a ng-repeat="item in vm.requests.completed | filter:filter_klopps | orderBy: 'costumer_request.created_at' : true"  href="#" class="list-group-item">
-							<h4 class="list-group-item-heading"><strong>Usuario: </strong>{{item.user.username}}</h4>
-							<p class="list-group-item-text"><strong>Fecha y hora: </strong> {{ item.costumer_request.created_at | date:'short' }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    Solicitudes de klopps completados
+                    <input type="text" class="form-control" ng-model="vm.filter_kloppss" placeholder="Buscar">
+                </div>
+                <div class="panel-body">
+                    <div ng-init="vm.getKloppRequestsFinished()" class="list-group checkin-detail-container">
+                        <a ng-repeat="item in vm.requests.completed | filter:vm.filter_kloppss | orderBy: 'costumer_request.created_at' : true" href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading"><strong>Usuario: </strong>{{item.user.username}}</h4>
+                            <p class="list-group-item-text"><strong>Fecha y hora: </strong> {{ item.costumer_request.created_at | date:'short' }}</p>
 
-							<div ng-if="item.costumer_request.state == 'completed'">
-								<p class="list-group-item-text"><span class="label label-success"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>							
-							</div>
-							<div ng-if="item.costumer_request.state == 'pending'">
-								<p class="list-group-item-text"><span class="label label-warning"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>							
-							</div>
-							<div ng-if="item.costumer_request.state == 'rejected'">
-								<p class="list-group-item-text"><span class="label label-danger"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>							
-							</div>
-<!--
+                            <div ng-if="item.costumer_request.state == 'completed'">
+                                <p class="list-group-item-text"><span class="label label-success"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>
+                            </div>
+                            <div ng-if="item.costumer_request.state == 'pending'">
+                                <p class="list-group-item-text"><span class="label label-warning"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>
+                            </div>
+                            <div ng-if="item.costumer_request.state == 'rejected'">
+                                <p class="list-group-item-text"><span class="label label-danger"><strong>Estado: </strong>{{item.costumer_request.state}}</span></p>
+                            </div>
+                            <!--
 							<p class="list-group-item-text"><strong>Klopps: </strong>{{item.klopp_log.klopps}}</p>
 							<p class="list-group-item-text"><strong># Factura: </strong>{{item.klopp_log.invoice_number}}</p>
 -->
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

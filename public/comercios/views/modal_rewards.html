@@ -1,39 +1,41 @@
 <md-dialog>
     <md-toolbar style="background-color: #FFC107 !important;">
-<div class="md-toolbar-tools">
-    <h2>Redimir premio</h2>
-    <span flex></span>
-    <md-button class="md-icon-button" ng-click="cancel()">
-        <ng-md-icon icon="cancel"></ng-md-icon>
-    </md-button>
-</div>
-</md-toolbar>
-<md-content class="md-padding">
-    <form name="userForm">
-        <div layout="row" layout-sm="column">
-            <div flex>
-                <label>Usuario:</label> {{ user.user.username }}
+        <div class="md-toolbar-tools">
+            <h2>Redimir premio</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <ng-md-icon icon="cancel"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="row" layout-align="space-around center" layout-xs="column">
+            <div flex-xs="100" flex="70">
+                <img width="500px" src="http://klopp.co/{{ user.reward.image.url }}" />
             </div>
-            <div flex>
-                <label>Premio:</label> {{ user.reward.name }}
-            </div>
-            <div flex>
-                <label>Klopps:</label> {{ user.reward.klopps }}
-            </div>
-            <div flex>
-                <label>Fecha y Hora:</label> {{ user.costumer_request.created_at | date:'short' }}
+            <div flex="30" flex-xs="100">
+                <h4>Detalle de solicitud de premio</h4>
+
+                <md-content class="md-padding checkin-detail-container">
+                    <div layout layout-sm="column">
+                        <label>Usuario: </label> {{ user.user.username }}
+                    </div>
+                    <div layout layout-sm="column">
+                        <label>Premio: </label> {{ user.reward.name }}
+                    </div>
+                    <div layout layout-sm="column">
+                        <label>Klopps: </label> {{ user.reward.klopps }}
+                    </div>
+                    <div layout layout-sm="column">
+                        <label>Fecha y Hora: </label> {{ user.costumer_request.created_at | date:'short' }}
+                    </div>
+                </md-content>
             </div>
         </div>
-        <div layout layout-sm="column">
-            <div flex>
-                <img width="500px" src="http://klopp.co/{{ user.reward.image.url }}"/>
-            </div>
-        </div>
-    </form>
-</md-content>
-<div class="md-actions" layout="row"> <span flex></span>
-    <md-button ng-click="answer(user.reward,'reject')" class="md-accent">Rechazar</md-button>
-    <md-button class="md-warn" ng-click="cancel()"> Cancelar </md-button>
-    <md-button ng-click="answer(user.reward,'accept')" class="md-accent">Ok</md-button>
-</div>
+    </md-dialog-content>
+    <div class="md-actions" layout="row"> <span flex></span>
+        <md-button ng-click="answer(user.reward,'reject')" class="md-accent md-raised">Rechazar</md-button>
+        <md-button class="md-warn md-raised" ng-click="cancel()"> Cancelar </md-button>
+        <md-button ng-click="answer(user.reward,'accept')" class="md-accent md-raised">Ok</md-button>
+    </div>
 </md-dialog>
