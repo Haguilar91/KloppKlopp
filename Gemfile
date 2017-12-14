@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rack-cors'
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'devise'
 gem 'simple_token_authentication', '~> 1.0'
 gem 'carrierwave'
